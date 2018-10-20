@@ -18,7 +18,7 @@ class CategoriasRelacionesController extends Controller
      */
     public function store(CategoriasRelacionesRequest $request) {
         // primero verifica si ya existe la relacion
-        $existe = $this->find($request->categoria_global_id, $request->categoria_id);
+        $existe = CategoriaRelacion::where('categoria_global_id',$categoria_global_id)->where('categoria_id',$categoria_id)->get();
         if( $existe->isEmpty() ) {
             // no existe, debe insertar la relación
             $categoriaRelacion = new CategoriaRelacion( $request->all() );
@@ -36,8 +36,4 @@ class CategoriasRelacionesController extends Controller
         
     }
 
-    public function find($categoria_global_id, $categoria_id)
-    {
-        return CategoriaRelacion::where('categoria_global_id',$categoria_global_id)->where('categoria_id',$categoria_id)->get();
-    }
 }
