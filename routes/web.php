@@ -26,6 +26,7 @@ Route::group(['prefix' => 'data'], function(){
     Route::get('getClientes', ['uses' => 'ClientesController@getData', 'as' => 'clientes.data']);
     Route::get('getProveedores', ['uses' => 'ProveedoresController@getData', 'as' => 'proveedores.data']);
     Route::get('getObligaciones', ['uses' => 'ObligacionesController@getData', 'as' => 'obligaciones.data']);
+    Route::get('getReferencias', ['uses' => 'ReferenciasController@getData', 'as' => 'referencias.data']);
 });
 
 Route::group(['prefix' => 'admin'], function(){

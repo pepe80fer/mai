@@ -14,4 +14,16 @@ class CategoriaRelacion extends Model
     // public function categorias() {
     //     return $this->belongsToMany('App\Categoria');
     // }
+
+    public function referencias() {
+        return $this->hasMany('App\Referencia');
+    }
+
+    public function categoria() {
+        return $this->belongsTo('App\Categoria');
+    }
+
+    public function categoriaGlobal() {
+        return $this->belongsTo('App\CategoriaGlobal');
+    }
 }

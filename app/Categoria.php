@@ -14,4 +14,8 @@ class Categoria extends Model
     public function categoriasGlobales() {
         return $this->belongsToMany('App\CategoriaGlobal');
     }
+
+    public function categoriasRelacion() {
+        return $this->hasMany('App\CategoriaRelacion');
+    }
 }

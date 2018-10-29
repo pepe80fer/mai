@@ -15,7 +15,8 @@ class ReferenciasController extends Controller
      * @date 29/09/2018
      */
     public function index() {
-        return view('dashboard.referencias.index');
+        return view('dashboard.referencias.index',
+                    ['listaReferencias' => $this->getData() ]);
     }
 
     /* 
@@ -34,5 +35,51 @@ class ReferenciasController extends Controller
         //Guardar el registro
         $referencia->save();
         return;
+    }
+
+    /* 
+     * Actualizar los datos de la referencia
+     *  
+     * @author Giovanni Neuta
+     * @date 27/10/2018
+     * @parameters string nombre
+     * @parameters string código
+     * @parameters estado {int} : 1
+     */
+    public function update(Request $request, $id) {
+        $this->validate($request, [
+            'nombre' => 'required|min:1|max:5',
+            'codigo' => 'required|min:1|max:5',
+            'estado' => 'required'
+        ]);
+        //Consulta la referencia por el id y la actualiza
+        Referencia::find($id)->update( $request->all() );
+        return;
+    }
+
+    /* 
+     * Eliminar una referencia
+     *  
+     * @author Giovanni Neuta
+     * @date 27/10/2018
+     * @parameters id {int}
+     */
+    public function destroy($id) {
+        //Consulta la referencia por el id
+        $referencia = Referencia::find($id);
+        //Elimina de base de datos el registro
+        $referencia->delete();
+        return;
+    }
+
+    /* 
+     * Obtener las referencias que estan habilitadas
+     *  
+     * @author Giovanni Neuta
+     * @date 27/10/2018
+     * @return json con el listado
+     */
+    public function getData() {
+        return Referencia::where('estado',1)->orderBy('nombre')->get();
     }
 }
