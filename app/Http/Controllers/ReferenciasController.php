@@ -48,9 +48,8 @@ class ReferenciasController extends Controller
      */
     public function update(Request $request, $id) {
         $this->validate($request, [
-            'nombre' => 'required|min:1|max:5',
-            'codigo' => 'required|min:1|max:5',
-            'estado' => 'required'
+            'nombre' => 'required|min:2|max:50|unique:referencias,nombre',
+            'codigo' => 'nullable|min:2|max:50'
         ]);
         //Consulta la referencia por el id y la actualiza
         Referencia::find($id)->update( $request->all() );

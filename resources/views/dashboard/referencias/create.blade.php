@@ -12,7 +12,7 @@
 
                 <div class="card-body">
                     <!-- Abrir el formulario de darle la ruta -->
-                    {!! Form::open([null, 'method' => 'POST', 'v-on:submit.prevent' => 'crearReferencia()']) !!}
+                    {!! Form::open([null, 'method' => 'POST', 'v-on:submit.prevent' => 'crearCategoriaRelacion()']) !!}
                         
                         <!-- Categoría global -->
                         <div class="form-group">

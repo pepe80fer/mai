@@ -75,24 +75,6 @@ Vue.component('referencias',{
             )
         },
 
-        crearCategoriaRelacion: function() {
-            var url = route('categoriasRelaciones.store').template;
-            axios.post(url, this.referencia).then(
-                response => {
-                    this.limpiarErrores();
-                    this.referencia.categoria_relacion_id = response.data;
-                    // toastr.success('Referencia creada correctamente');
-                }, response => {
-                    toastr["error"]("Revisa la lista de errores","Error al crear la referencia");
-                    this.errors = response.response.data;
-                    $( ".errors-alert" ).show();
-                }).catch(error => {
-                    toastr["error"]("Revisa la lista de errores","Error al crear la referencia");
-                    this.errors = error.response.data;
-                    $( ".errors-alert" ).show();
-                });
-        },
-
         consultarCategoriaRelacion: function() {
             var url = route('categoriasRelaciones.show').template;
             axios.post(url, this.referencia).then(
@@ -112,19 +94,15 @@ Vue.component('referencias',{
                 });
         },
 
-        crearReferencia: function() {
+        crearCategoriaRelacion: function() {
             // Primero se debe crear la relacion de las categorias
-            this.crearCategoriaRelacion();
-
-            var url = route('referencias.store').template;
+            var url = route('categoriasRelaciones.store').template;
             axios.post(url, this.referencia).then(
                 response => {
                     this.limpiarErrores();
-                    //Listar nuevamente las obligaciones
-                    this.getListaReferencias();
-                    $( "#create" ).modal('hide');
-                    toastr.success('Referencia ('+this.referencia.nombre+') creada correctamente');
-                    this.limpiarReferencia();
+                    this.referencia.categoria_relacion_id = response.data;
+                    this.crearReferencia();
+                    // toastr.success('Referencia creada correctamente');
                 }, response => {
                     toastr["error"]("Revisa la lista de errores","Error al crear la referencia");
                     this.errors = response.response.data;
@@ -134,6 +112,26 @@ Vue.component('referencias',{
                     this.errors = error.response.data;
                     $( ".errors-alert" ).show();
                 });
+        },
+
+        crearReferencia: function() {
+            var url = route('referencias.store').template;
+            axios.post(url, this.referencia).then(
+                response => {
+                location.reload();
+                this.limpiarErrores();
+                $( "#create" ).modal('hide');
+                toastr.success('Referencia ('+this.referencia.nombre+') creada correctamente');
+                this.limpiarReferencia();
+            }, response => {
+                toastr["error"]("Revisa la lista de errores","Error al crear la referencia");
+                this.errors = response.response.data;
+                $( ".errors-alert" ).show();
+            }).catch(error => {
+                toastr["error"]("Revisa la lista de errores","Error al crear la referencia");
+                this.errors = error.response.data;
+                $( ".errors-alert" ).show();
+            });
         },
 
         editarReferencia: function(data) {
@@ -149,7 +147,7 @@ Vue.component('referencias',{
         },
 
         actualizarReferencia: function(id) {
-            var url = (route('referencia.update').template).replace('{referencia}',id);
+            var url = (route('referencias.update').template).replace('{referencia}',id);
             axios.put(url, this.referencia).then(
                 response => {
                     toastr["success"]('La referencia ('+this.referencia.nombre+') se actualizó correctamente');

@@ -47,15 +47,19 @@
                         <!-- Estado por defecto 1 -->
                         <div class="form-check">
                             <label class="form-radio-label">
-                                {!! Form::radio('estado', '1', true, ['class' => 'form-radio-input'])  !!}
+                                {!! Form::radio('estado', '1', true, ['class' => 'form-radio-input', 'v-model' => 'referencia.estado'])  !!}
                                 <span class="form-radio-sign">Habilitar</span>
+                            </label>
+                            <label class="form-radio-label">
+                                {!! Form::radio('estado', '0', null, ['class' => 'form-radio-input', 'v-model' => 'referencia.estado'])  !!}
+                                <span class="form-radio-sign">Deshabilitar</span>
                             </label>
                         </div>
 
                         @include('dashboard.template.errors2')
                         <!-- Enviar o Cancelar -->
                         <div class="card-action">
-                            <button class="btn btn-success pull-right">Guardar</button>
+                            <button class="btn btn-success pull-right">Actualizar</button>
                         </div>
                     {!! Form::close() !!}
                 </div>
